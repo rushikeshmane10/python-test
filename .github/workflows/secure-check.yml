@@ -1,4 +1,4 @@
-name: Secret Scan
+name: Secret Scan (Disabled)
 
 on:
   pull_request:
@@ -16,20 +16,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      # ✅ Replace secret scan with dummy logic
-      - name: Run Dummy Check
-        run: |
-          echo "🔹 Running dummy check instead of secret scan"
-          echo "✅ Everything looks good!"
-          exit 0
+      - name: Success step
+        run: echo "✅ Workflow ran successfully (no secret scanning)"
 
-      # Optional: create and upload a fake report
-      - name: Create dummy report
-        run: echo '{"status": "success", "message": "No checks performed"}' > gitleaks-report.json
-
-      - name: Upload report artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: gitleaks-report
-          path: gitleaks-report.json
