@@ -1,4 +1,4 @@
-name: Secret Scan (Disabled)
+name: Secret Scan
 
 on:
   pull_request:
@@ -16,6 +16,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Success step
-        run: echo "✅ Workflow ran successfully (no secret scanning)"
+      - name: Run Gitleaks (Docker)
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/repo" \
+            zricethezav/gitleaks:latest detect \
+            --source="/repo" \
+            --redact \
+            --exit-code 1 \
+            --report-format="json" \
+            --report-path="/repo/gitleaks-report.json"
 
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report
+          path: gitleaks-report.json
