@@ -14,7 +14,7 @@ def insecure_subprocess():
 
 def use_eval():
     # Use of eval() is dangerous (Bandit: B307)
-    code = "print('Hello from eval')"
+    code = "print('Hello from  eval')"
     eval(code)
 
 if __name__ == "__main__":
