@@ -35,39 +35,3 @@ token = a
 tmp = "gsk_fakegroqvalue"
 groq_token = tmp
 
-# Google Gemini in request param (test API key usage detection)
-key = "AIzaSyZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
-response = requests.post(
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
-    params={"key": key}
-)
-
-
-# Literal 'keyword' variable
-keyword = "sk-abc123EXAMPLEKEYFOROPENAI"
-
-# Generic but sensitive-looking variable name
-secret = "hf_fakehuggingfaceKEY999"
-
-# Very ambiguous variable name, still should match by value
-access = "ghp_abcdEFGHijklMNOPqrstUVWXYZ123456"
-
-config = {
-    "auth": {
-        "key": "sk-abc987EXAMPLEKEY",
-        "backup_key": "hf_extraKEY_EXAMPLE123"
-    }
-}
-
-# in a list
-keys = ["sk-live-fakevalueEXAMPLE", "hf_anotherFakeKeyExample"]
-
-# key in an object or class
-class Auth:
-    def __init__(self):
-        self.api_key = "sk-embeddedKEYEXAMPLE"
-        self.hf = "hf_AnotherHiddenKeyExample"
-
-# via join
-openai_key = "".join(["sk-", "abc", "123", "EXAMPLE", "KEY"])
-
